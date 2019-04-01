@@ -19,30 +19,41 @@
     <div class="world-countries">
       <div class="countries-searchbar">
         <h1>
+          <span class="red">Super</span>
           <span class="green">World</span>
-          <span class="yellow">Countries</span> <span class="red">List</span>
+          <span class="yellow">Countries</span> <span class="blue">List</span>
         </h1>
         <p>
           <span class="blue">This</span> <span class="red">list</span>
           <span class="yellow">contains</span> <span class="number"></span>
           <span class="green">countries</span>
         </p>
-        <div class="search-buttons">
+        <div class="sort-buttons">
           <button class="sort name">
-            Sort by Name<i class="fas fa-sort-alpha-down"></i>
+            Sort by Name <i class="fas fa-sort-alpha-down"></i>
           </button>
           <button class="sort capital">
-            Sort by Capital<i class="fas fa-sort-alpha-down"></i>
+            Sort by Capital <i class="fas fa-sort-alpha-down"></i>
           </button>
           <button class="sort population">
-            Sort By Population<i class="fas fa-sort-alpha-down"></i>
+            Sort By Population <i class="fas fa-sort-alpha-down"></i>
           </button>
+          <button class="charts-btn lang-btn"></button>
+          <button class="charts-btn pop-btn"></button>
         </div>
-        <input type="text" placeholder="Let's find your country..." />
+        <input
+          type="text"
+          placeholder="Search by Country, Capital, Language..."
+        />
       </div>
       <div class="list-info"></div>
+      <div class="charts">
+        <div class="chart-languages"></div>
+        <div class="chart-population"></div>
+      </div>
       <div class="countries-list"></div>
     </div>
+    <script src="countriesObj.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

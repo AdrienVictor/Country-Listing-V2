@@ -56,3 +56,14 @@ const showCountries = arr => {
 };
 
 showCountries(filterCountries(countries, searchInput.value));
+
+// sorting in only one function
+const sortMaat = (arr, label) => {
+  const countries = [...arr];
+  countries.sort((a, b) => {
+    if (a[label] > b[label]) return -1;
+    if (a[label] < b[label]) return 1;
+    return 0;
+  });
+  return countries;
+};
