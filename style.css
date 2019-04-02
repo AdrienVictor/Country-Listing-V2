@@ -42,13 +42,12 @@ h2 {
   margin: 15px 10px;
   background: url(./assets/basic-brick.png) repeat;
   background-size: contain;
-  background-position: ;
   color: white;
   text-shadow: 4px 2px black;
   /* border: none; */
 }
 .charts-btn {
-  background: url(assets/block-question.gif) no-repeat;
+  background: url(assets/block-question2.gif) no-repeat;
   background-size: contain;
   width: 48px;
 }
