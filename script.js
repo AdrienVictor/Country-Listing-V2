@@ -2,7 +2,7 @@ const countriesList = document.querySelector('.countries-list');
 const number = document.querySelector('.number');
 const input = document.querySelector('input');
 const sortBtns = document.querySelectorAll('.sort');
-const chartsBtn = document.querySelectorAll('.charts-btn');
+const chartsBtns = document.querySelectorAll('.charts-btn');
 const listInfo = document.querySelector('.list-info');
 const chartLanguages = document.querySelector('.chart-languages');
 const chartPopulation = document.querySelector('.chart-population');
@@ -13,6 +13,7 @@ number.textContent = countries.length;
 
 // Filter and sorting Functions
 
+// generating the initial list of countries
 function listGenerator(countries) {
   countriesList.innerHTML = '';
   countries.forEach((newCountry, index) => {
@@ -32,7 +33,7 @@ function listGenerator(countries) {
       : country.classList.add('even');
   });
 }
-
+// filtering the list based on the name||capital||language
 function filterCountries() {
   let search = input.value;
   let countriesFilter = countries.filter(country => {
@@ -53,10 +54,11 @@ function filterCountries() {
   storedCountries = countriesFilter;
   listGenerator(countriesFilter);
 }
-
+// sort the selection by name
 function sortName() {
   filterCountries(countries.reverse());
 }
+// sort the selection by capital
 function sortCapital() {
   if (isAZ)
     (isAZ = false),
@@ -70,6 +72,7 @@ function sortCapital() {
       });
   listGenerator(storedCountries);
 }
+// sort the selection by population size
 function sortPopulation() {
   if (isAZ)
     (isAZ = false),
@@ -83,6 +86,7 @@ function sortPopulation() {
       });
   listGenerator(storedCountries);
 }
+// checking what button is clicked and the corresponding ran functions
 function btnChecker() {
   this.querySelector('.fas').classList.toggle('fa-sort-alpha-up');
   sortBtns.forEach(button => {
@@ -106,6 +110,7 @@ console.log(totalPopulation);
 // let totalLanguages = topLanguages.reduce((a, b) => a + b[1], 0);
 // console.log(totalLanguages);
 
+// get the top10 population of the selection
 function top10Population() {
   topPopulation = storedCountries
     .sort((a, b) => {
@@ -114,6 +119,7 @@ function top10Population() {
     .slice(0, 10);
   graphGeneratorPop(topPopulation);
 }
+// get the top10 languages of the selection
 function top10Languages() {
   let map = new Map();
   storedCountries.forEach(country => {
@@ -128,14 +134,13 @@ function top10Languages() {
     })
     .slice(0, 10);
   graphGeneratorLang(topLanguages);
-  // return topLanguages;
 }
-function graphGeneratorPop() {
-  console.log(topPopulation);
 
+// generating the chart for the population
+function graphGeneratorPop() {
   chartPopulation.innerHTML = '';
   let header = document.createElement('h2');
-  header.innerHTML = 'Top 10 Most Populated Countries';
+  header.innerHTML = `<span class='red'>Most</span> <span class='yellow'>Populated</span> <span class='blue'>Countries</span>`;
   chartPopulation.appendChild(header);
   topPopulation.forEach(country => {
     let bar = document.createElement('div');
@@ -147,11 +152,11 @@ function graphGeneratorPop() {
     chartPopulation.appendChild(bar);
   });
 }
-
+// generating the chart for the langauges
 function graphGeneratorLang() {
   chartLanguages.innerHTML = '';
   let header = document.createElement('h2');
-  header.innerHTML = 'Top 10 Most Spoken Languages';
+  header.innerHTML = `<span class='green'>Most</span> <span class='red'>Spoken</span> <span class='blue'>Languages</span>`;
   chartLanguages.appendChild(header);
   topLanguages.forEach(language => {
     let bar = document.createElement('div');
@@ -164,25 +169,25 @@ function graphGeneratorLang() {
     chartLanguages.appendChild(bar);
   });
 }
-
-function chartBtnCheck() {
+// checking which button is checked to make the charts appear or not
+function chartBtnChecker() {
   this.classList.toggle('active');
-  console.log(this);
-  if (this.classList.contains('active') && this.classList.contains('lang-btn'))
-    document.querySelector('.chart-languages').style.display = 'block';
-  else document.querySelector('.chart-languages').style.display = 'none';
-
-  if (this.classList.contains('active') && this.classList.contains('pop-btn'))
-    document.querySelector('.chart-population').style.display = 'block';
-  else document.querySelector('.chart-population').style.display = 'none';
+  if (this.classList.contains('active'))
+    if (this.classList.contains('lang-btn'))
+      document.querySelector('.chart-languages').style.display = 'block';
+    else document.querySelector('.chart-population').style.display = 'block';
+  else
+    document.querySelector(`.chart-${this.dataset.chart}`).style.display =
+      'none';
 }
 
-input.addEventListener('keyup', filterCountries);
-sortBtns.forEach(button => button.addEventListener('click', btnChecker));
-chartsBtn.forEach(button => button.addEventListener('click', chartBtnCheck));
-
-input.addEventListener('keyup', top10Languages);
-input.addEventListener('keyup', top10Population);
+// Functions calls and eventListener
 listGenerator(countries);
 top10Languages();
 top10Population();
+
+input.addEventListener('keyup', filterCountries);
+input.addEventListener('keyup', top10Languages);
+input.addEventListener('keyup', top10Population);
+sortBtns.forEach(button => button.addEventListener('click', btnChecker));
+chartsBtns.forEach(button => button.addEventListener('click', chartBtnChecker));
